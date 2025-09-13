@@ -18,7 +18,7 @@ Features
 
 ⸻
 
-📦 Dependencies
+Dependencies
 
 Frontend
 
@@ -63,7 +63,7 @@ App should now be available at http://localhost:3000 (frontend) and API at http:
 
 ⸻
 
-📂 Folder Structure
+Folder Structure
 
 /frontend   -> React client
 /backend    -> Node.js server
@@ -82,7 +82,7 @@ OPENAI_API_KEY=your_key_here
 
 ⸻
 
-👥 Contributors
+Contributors
 •	Lim Junsheng  
 •   Marcus Chew Wen Geng  
 •   Kimerlin Foo  
