@@ -130,7 +130,7 @@ const Research: React.FC = () => {
             <span className="title-line">Policy Research</span>
             <span className="title-line">Made Accessible</span>
           </h1>
-          <p className="hero-subtitle">
+          <p className="hero-subtitle" style={{ color: "beige" }}>
             Find verified quotes, understand policy context, and track legislative evolution
             through our comprehensive research tool.
           </p>
