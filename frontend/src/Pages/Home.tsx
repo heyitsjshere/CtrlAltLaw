@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const sectionRefs = useRef<HTMLDivElement[]>([]);
@@ -36,8 +37,8 @@ const Home: React.FC = () => {
       <section className="home-hero" ref={addToRefs}>
         <div className="hero-content">
           <h1 className="hero-title" style={{ color: "#8B3A00" }}>
-            <span>Welcome to LawHive</span><br/>
-            <span>Explore, Understand, Empower</span>
+            <span>Home</span><br/>
+            <span>Welcome to LawHive</span>
           </h1>
           <p className="hero-subtitle">
             The ultimate tool for accessing, understanding, and analyzing government policies.
@@ -66,11 +67,12 @@ const Home: React.FC = () => {
       {/* CTA Section */}
       <section className="cta-section section-padding" ref={addToRefs}>
         <div className="container">
-          <h2>Get Started with PolicyInsight</h2>
+          <h2>Get Started with LawHive</h2>
           <p>Empower yourself with verified information and actionable insights.</p>
           <div className="cta-buttons">
-            
+            <Link to="../about">
             <button className="cta-button secondary">Learn More</button>
+            </Link>
           </div>
         </div>
       </section>
