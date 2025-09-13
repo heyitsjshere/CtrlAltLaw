@@ -92,7 +92,7 @@ const About: React.FC = () => {
       <section className="home-hero" ref={addToRefs}>
         <div className="hero-content">
           <h1 className="hero-title" style={{ color: "#8B3A00" }}>
-            <span>About Us</span><br/>
+            <span> About Us </span><br/>
             <span>Explore, Understand, Empower</span>
           </h1>
           <p className="hero-subtitle">
