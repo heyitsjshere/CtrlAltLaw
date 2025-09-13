@@ -1,41 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { apiService, SearchRequest, SearchResponse } from '../services/apiService';
 import './Research.css';
 
 const Research: React.FC = () => {
   const [question, setQuestion] = useState('');
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<SearchResponse | null>(null);
   const [userType, setUserType] = useState<'lawyer' | 'layperson'>('layperson');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const sectionRefs = useRef<HTMLDivElement[]>([]);
 
-  // Mock data
-  const mockQuotes = [
-    {
-      id: 1,
-      text: "We are committed to building 100,000 new housing units by 2025 to address the current shortage.",
-      source: "Ministerial Statement on Housing Policy 2024",
-      url: "https://example.com/housing-policy-2024",
-      date: "2024-03-15",
-      reliability: 95
-    },
-    {
-      id: 2,
-      text: "First-time home buyers will receive additional subsidies of up to $50,000 under the new scheme.",
-      source: "Parliamentary Debates on Housing Bill",
-      url: "https://example.com/housing-debate-2024",
-      date: "2024-02-28",
-      reliability: 92
-    }
-  ];
-
-  const mockSummary = "The Minister announced plans to build 100,000 new housing units by 2025 and increased subsidies for first-time home buyers. The government is taking a multi-pronged approach to address housing affordability concerns.";
-
-  const policyTimeline = [
-    { date: "2020", policy: "Initial housing scheme with basic subsidies" },
-    { date: "2022", policy: "Expanded subsidies for middle-income families" },
-    { date: "2024", policy: "Major overhaul with 100,000 new units and increased subsidies" }
-  ];
-
+  // Add the missing useEffect and addToRefs function
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -66,32 +41,54 @@ const Research: React.FC = () => {
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!question.trim()) return;
     
     setIsLoading(true);
+    setError(null);
+    setResults(null);
     
-    // Simulate API call delay
-    setTimeout(() => {
-      setResults({
-        quotes: mockQuotes,
-        summary: mockSummary,
-        timeline: policyTimeline
-      });
+    try {
+      const searchParams: SearchRequest = {
+        query: question.trim(),
+        userType: userType,
+        includeCrossVerification: true
+      };
+      
+      const response = await apiService.search(searchParams);
+      setResults(response);
+    } catch (err: any) {
+      console.error('Search error:', err);
+      setError(err.response?.data?.message || 'An error occurred while searching. Please try again.');
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
-  const renderReliabilityIndicator = (score: number) => {
-    let color = '#4caf50';
-    if (score < 70) color = '#f44336';
-    else if (score < 85) color = '#ff9800';
+  const renderReliabilityIndicator = (reliability: string) => {
+    let score = 50;
+    let color = '#ff9800';
+    
+    switch (reliability.toUpperCase()) {
+      case 'HIGH':
+        score = 95;
+        color = '#4caf50';
+        break;
+      case 'MEDIUM':
+        score = 75;
+        color = '#ff9800';
+        break;
+      case 'LOW':
+        score = 45;
+        color = '#f44336';
+        break;
+    }
     
     return (
       <div className="reliability-indicator">
         <div className="reliability-score" style={{ color }}>
-          {score}%
+          {reliability.toUpperCase()} ({score}%)
         </div>
         <div className="reliability-bar">
           <div 
@@ -103,7 +100,7 @@ const Research: React.FC = () => {
     );
   };
 
-  // SVG Icons
+  // Add the missing SVG icon components
   const SearchIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="currentColor"/>
@@ -170,11 +167,17 @@ const Research: React.FC = () => {
                 <textarea
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
-                  placeholder="Enter your question about any policy area or ministerial statement..."
+                  placeholder="What did the Minister say about BTO waiting times in March versus what the Ministry announced later?"
                   rows={3}
                 />
               </div>
             </div>
+            
+            {error && (
+              <div className="error-message" style={{ color: '#f44336', marginBottom: '1rem' }}>
+                {error}
+              </div>
+            )}
             
             <button type="submit" className="cta-button primary" disabled={isLoading}>
               {isLoading ? (
@@ -200,12 +203,15 @@ const Research: React.FC = () => {
             
             {userType === 'lawyer' ? (
               <div className="lawyer-results">
-                <h3>Verified Quotes</h3>
+                <h3>Verified Quotes & Citations</h3>
                 <div className="quotes-grid">
-                  {results.quotes.map((quote: any) => (
-                    <div key={quote.id} className="quote-card">
+                  {results.results.quotes.map((quote: any, index: number) => (
+                    <div key={index} className="quote-card">
                       <div className="quote-text">"{quote.text}"</div>
                       <div className="quote-meta">
+                        <div className="quote-source">
+                          <strong>Speaker:</strong> {quote.speaker}
+                        </div>
                         <div className="quote-source">
                           <strong>Source:</strong> {quote.source}
                         </div>
@@ -230,14 +236,14 @@ const Research: React.FC = () => {
               <div className="layperson-results">
                 <h3>Policy Summary</h3>
                 <div className="summary-card">
-                  <p>{results.summary}</p>
+                  <p>{results.results.summary}</p>
                   <div className="sources-section">
                     <h4>Verified Sources:</h4>
                     <ul>
-                      {results.quotes.map((quote: any) => (
-                        <li key={quote.id}>
+                      {results.results.quotes.map((quote: any, index: number) => (
+                        <li key={index}>
                           <a href={quote.url} target="_blank" rel="noopener noreferrer" className="source-link">
-                            {quote.source} ({quote.date})
+                            {quote.source} ({quote.date}) - {quote.speaker}
                           </a>
                         </li>
                       ))}
@@ -246,21 +252,6 @@ const Research: React.FC = () => {
                 </div>
               </div>
             )}
-            
-            <div className="timeline-section">
-              <h3>Policy Evolution Timeline</h3>
-              <div className="timeline">
-                {results.timeline.map((item: any, index: number) => (
-                  <div key={index} className="timeline-item">
-                    <div className="timeline-marker"></div>
-                    <div className="timeline-content">
-                      <div className="timeline-date">{item.date}</div>
-                      <div className="timeline-policy">{item.policy}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       )}
