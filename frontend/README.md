@@ -1,46 +1,97 @@
-# Getting Started with Create React App
+Perfect 👍 a good README is super important, especially for a hackathon or collab project. Since you definitely want to list dependencies, let’s make a clean structure that includes that and more so anyone can run your project without asking you questions.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Here’s a recommended outline for your README.md:
 
-## Available Scripts
+⸻
 
-In the project directory, you can run:
+📖 Project Title
 
-### `npm start`
+Short description of what the app does (1–2 sentences).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+⸻
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+🚀 Features
+	•	Smart NLP (Singapore-specific acronyms, intent detection, entity recognition)
+	•	Multi-source integration (Hansard, press releases, official social media)
+	•	Cross-verification engine (contradiction detection, timeline tracking, confidence scoring)
+	•	Side-by-side comparisons & dual interfaces (lawyer vs public)
+	•	Full source attribution with links & metadata
 
-### `npm test`
+⸻
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+⚙️ Tech Stack
+	•	Frontend: React, TypeScript, React Router DOM
+	•	Backend: Node.js, Express, OpenAI API (mock API for demo)
+	•	Other: RESTful API, modular architecture, ESLint, etc.
 
-### `npm run build`
+⸻
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+📦 Dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Frontend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+cd frontend
+npm install
 
-### `npm run eject`
+Key dependencies:
+	•	react
+	•	react-dom
+	•	react-router-dom
+	•	typescript (and @types/* for TS support)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Backend
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+cd backend
+npm install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Key dependencies:
+	•	express
+	•	dotenv
+	•	axios (if fetching data)
+	•	openai (or whichever AI lib you use)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+⸻
 
-## Learn More
+▶️ Running the Project
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Start frontend
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+cd frontend
+npm start   # or npm run dev if using Vite
+
+Start backend
+
+cd backend
+npm run dev   # if nodemon
+# or
+npm start
+
+App should now be available at http://localhost:3000 (frontend) and API at http://localhost:5000 (backend).
+
+⸻
+
+📂 Folder Structure
+
+/frontend   -> React client
+/backend    -> Node.js server
+
+
+⸻
+
+Notes
+	•	Requires Node.js v18+ (check with node -v).
+	•	Uses mock API for demo reliability due to 24-hour hackathon constraints. Core logic tested and ready for live data integration.
+	•	Remember to create a .env file in backend/ with your API keys. Example:
+
+OPENAI_API_KEY=your_key_here
+
+
+
+⸻
+
+👥 Contributors
+	•	Lim Junsheng
+    •   Marcus Chew Wen Geng
+    •   Kimerlin Foo
+    •   Megan Tan
+    •   Neo Shao qin
