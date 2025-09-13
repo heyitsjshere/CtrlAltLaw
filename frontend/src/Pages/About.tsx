@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import './About.css';
+import { Link } from 'react-router-dom';
 
 const About: React.FC = () => {
   // Array of refs, one for each section
@@ -88,33 +89,32 @@ const About: React.FC = () => {
   return (
     <div className="about-page">
       {/* Hero Section */}
-      <section className="about-hero" ref={addToRefs}>
+      <section className="home-hero" ref={addToRefs}>
         <div className="hero-content">
-          <h1 className="hero-title">
-            <span className="title-line" style={{ color: "#8B3A00" }}>Transparent Policy</span>
-            <span className="title-line" style={{ color: "#8B3A00" }}>Research for All</span>
+          <h1 className="hero-title" style={{ color: "#8B3A00" }}>
+            <span>About Us</span><br/>
+            <span>Explore, Understand, Empower</span>
           </h1>
           <p className="hero-subtitle">
-            Bridging the gap between policy makers, legal professionals, and citizens 
-            through accessible information and verified sources.
+            The ultimate tool for accessing, understanding, and analyzing government policies.
           </p>
           <div className="scroll-indicator">
-            <span>Scroll to explore</span>
+            <span>Scroll to discover</span>
             <div className="arrow"></div>
           </div>
         </div>
         <div className="hero-visual">
           <div className="floating-card card-1">
-            <div className="card-icon">⚖️</div>
-            <h4>Legal Precision</h4>
+            <div className="card-icon">📜</div>
+            <h4>Verified Policies</h4>
           </div>
           <div className="floating-card card-2">
-            <div className="card-icon">👥</div>
-            <h4>Public Understanding</h4>
+            <div className="card-icon">🔍</div>
+            <h4>Smart Search</h4>
           </div>
           <div className="floating-card card-3">
-            <div className="card-icon">📈</div>
-            <h4>Policy Evolution</h4>
+            <div className="card-icon">⚡</div>
+            <h4>Quick Insights</h4>
           </div>
         </div>
       </section>
@@ -285,8 +285,9 @@ const About: React.FC = () => {
           <h2>Ready to Explore Policy Insights?</h2>
           <p>Start your research today with our comprehensive policy analysis tool</p>
           <div className="cta-buttons">
-
-            <button className="cta-button secondary">Learn More</button>
+            <Link to = "../research">
+            <button className="cta-button secondary">Get Started</button>
+            </Link>
           </div>
         </div>
       </section>
