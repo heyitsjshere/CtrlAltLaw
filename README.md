@@ -1,12 +1,4 @@
-Perfect 👍 a good README is super important, especially for a hackathon or collab project. Since you definitely want to list dependencies, let’s make a clean structure that includes that and more so anyone can run your project without asking you questions.
-
-Here’s a recommended outline for your README.md:
-
-⸻
-
-📖 Project Title
-
-Short description of what the app does (1–2 sentences).
+Ctrl Lit Law presents...LawHive!
 
 ⸻
 
