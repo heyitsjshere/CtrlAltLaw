@@ -1,4 +1,4 @@
-Ctrl Lit Law presents...LawHive!
+# Ctrl Lit Law presents...LawHive!
 
 ⸻
 
@@ -55,7 +55,7 @@ Start backend
 
 cd backend
 npm run dev   # if nodemon
-# or
+or
 npm start
 
 App should now be available at http://localhost:3000 (frontend) and API at http://localhost:5000 (backend).
