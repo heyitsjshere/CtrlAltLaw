@@ -4,15 +4,10 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Updated CORS configuration
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'], // React dev server URLs
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// Simplified CORS - allow all origins for development
+app.use(cors());
 
-app.use(express.json({ limit: '10mb' })); // Increased limit for large responses
+app.use(express.json({ limit: '10mb' }));
 
 // Routes
 app.use('/api', require('./routes/search'));
@@ -22,25 +17,6 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Legal Research API is running!',
     timestamp: new Date().toISOString()
-  });
-});
-
-// Health check endpoint for frontend
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'healthy',
-    timestamp: new Date().toISOString(),
-    version: '1.0.0'
-  });
-});
-
-// Error handling middleware
-app.use((error, req, res, next) => {
-  console.error('API Error:', error);
-  res.status(500).json({
-    success: false,
-    error: 'Internal server error',
-    message: error.message
   });
 });
 
